@@ -1,4 +1,5 @@
 /obj
+/.vscode
 .sudo_as_admin_successful
 *.o
 *.bin
