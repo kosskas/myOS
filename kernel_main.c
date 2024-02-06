@@ -6,6 +6,6 @@ void printf(char* str){
     }
 }
 void kernel_main(){
-    printf("first start");
+    printf("first start but with nasm");
     while(1);
 }

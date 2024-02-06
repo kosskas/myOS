@@ -1,5 +1,5 @@
 GCCPARAMS = -m32 -Iinclude -fno-use-cxa-atexit -nostdlib -fno-builtin -fno-rtti -fno-exceptions -fno-leading-underscore -Wno-write-strings
-ASPARAMS = --32
+ASPARAMS = -f elf32
 LDPARAMS = -melf_i386
 
 objects = loader.o kernel_main.o
@@ -7,8 +7,8 @@ objects = loader.o kernel_main.o
 %.o: %.c
 	gcc $(GCCPARAMS) -c -o $@ $<
 
-%.o: %.s
-	as $(ASPARAMS) -o $@ $<
+%.o: %.asm
+	nasm $(ASPARAMS) -o $@ $<
 
 kernel.bin: linker.ld $(objects)
 	ld $(LDPARAMS) -T $< -o $@ $(objects)
