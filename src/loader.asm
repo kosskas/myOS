@@ -13,8 +13,8 @@ global loader
 
 loader:
     mov esp, kernel_stack
-    push eax
-    push ebx
+    ;push eax
+    ;push ebx
     call kernel_main
 
 _stop:
