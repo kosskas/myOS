@@ -6,10 +6,9 @@ void write(char* str){
         VideoMemory[i] = (VideoMemory[i] & 0xFF00) | str[i];
     }
 }
-
+gdt_t GDT;
 void kernel_main(){
-    gdt_t GDT;
     set_gdt(&GDT);
-    write("gdt");
+    write("gdt2137");
     while(1);
 }
