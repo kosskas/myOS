@@ -2,12 +2,15 @@ GCCPARAMS = -m32 -Iinclude -fno-use-cxa-atexit -nostdlib -fno-builtin -fno-rtti 
 ASPARAMS = -f elf32
 LDPARAMS = -melf_i386
 
-objects = loader.o kernel_main.o
+objects = obj/loader.o \
+		obj/krl/kernel_main.o
 
-%.o: %.c
+obj/%.o: src/%.c
+	mkdir -p $(@D)
 	gcc $(GCCPARAMS) -c -o $@ $<
 
-%.o: %.asm
+obj/%.o: src/%.asm
+	mkdir -p $(@D)
 	nasm $(ASPARAMS) -o $@ $<
 
 kernel.bin: linker.ld $(objects)
