@@ -3,7 +3,9 @@ ASPARAMS = -f elf32
 LDPARAMS = -melf_i386
 
 objects = obj/loader.o \
-		obj/krl/kernel_main.o
+		obj/krl/kernel_main.o \
+		obj/mem/gdt/gdt.o \
+		obj/mem/gdt/resources.o
 
 obj/%.o: src/%.c
 	mkdir -p $(@D)
