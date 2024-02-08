@@ -1,4 +1,4 @@
-#include <cmn/types.h>
+#include <common.h>
 #include <gdt/gdt.h>
 void write(char* str){
     uint16_t* VideoMemory = (uint16_t*)0xB8000;
@@ -7,9 +7,10 @@ void write(char* str){
     }
 }
 gdt_t GDT;
+
 void kernel_main(){
     set_gdt(&GDT);
-    write("gdt44");
-    //test();
+    printf("1. line\n");
+    printf("2. line\n3. line\n4. line");
     while(1);
 }

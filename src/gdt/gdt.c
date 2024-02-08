@@ -37,8 +37,7 @@ void set_gdt(gdt_t* gdt){
     uint32_t gdtr[2];
     gdtr[0] = (uint32_t)gdt;
     gdtr[1] = sizeof(gdt) <<16;
-    //asm volatile("lgdt (%0)": :"p" (((uint8_t *) gdtr)+2));
-    load_gdt(gdtr);
+    asm volatile("lgdt (%0)": :"p" (((uint8_t *) gdtr)+2));
 }
 uint16_t get_dataSegmentDescriptor(gdt_t* gdt){
     return (uint8_t*)&gdt->dataSegSelector - (uint8_t*)gdt;

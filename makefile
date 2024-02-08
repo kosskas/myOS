@@ -5,7 +5,7 @@ LDPARAMS = -melf_i386
 objects = obj/loader.o \
 		obj/kernel_main.o \
 		obj/gdt/gdt.o \
-		obj/gdt/load_gdt.o
+		obj/cmn/io.o
 
 obj/%.o: src/%.c
 	mkdir -p $(@D)
