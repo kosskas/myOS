@@ -10,7 +10,7 @@ gdt_t GDT;
 
 void kernel_main(){
     set_gdt(&GDT);
-    printf("1. line\n");
+    printf("Hello real world!\n");
     printf("2. line\n3. line\n4. line");
     while(1);
 }
