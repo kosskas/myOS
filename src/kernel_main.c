@@ -1,5 +1,5 @@
 #include <common.h>
-#include <gdt/gdt.h>
+#include <mem/gdt.h>
 void write(char* str){
     uint16_t* VideoMemory = (uint16_t*)0xB8000;
     for(int i = 0; str[i] != '\0'; i++){
