@@ -1,4 +1,4 @@
-#include <cmn/io.h>
+#include <cmn/printf.h>
 
 void write(char* str){
     uint16_t* VideoMemory = (uint16_t*)0xB8000;

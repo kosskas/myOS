@@ -20,6 +20,11 @@ typedef struct GDT {
     segment_descriptor_t dataSegSelector;
 } gdt_t;
 
+struct gdt_ptr {
+    uint16_t len;
+    uint32_t ptr;
+} __attribute__((packed));
+
 void create_descriptor(segment_descriptor_t* segdesc, uint32_t base, uint32_t limit, uint8_t flags);
 uint32_t get_base(segment_descriptor_t* segdesc);
 uint32_t get_limit(segment_descriptor_t* segdesc);
