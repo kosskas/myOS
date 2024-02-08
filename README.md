@@ -2,11 +2,11 @@
 Own simple operating system in C/ASM.<br>
 
 ## Tools
-`sudo apt-get install gcc binutils libc6-dev-i386`
-`sudo apt-get install nasm`
-`sudo apt-get install grub-efi`
-`sudo apt-get install mtools`
-`sudo apt-get install xorriso`
+`sudo apt-get install gcc binutils libc6-dev-i386`<br>
+`sudo apt-get install nasm`<br>
+`sudo apt-get install grub-efi`<br>
+`sudo apt-get install mtools`<br>
+`sudo apt-get install xorriso`<br>
 
 ## Complile
 1. Run `make` to build kernel.
