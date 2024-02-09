@@ -11,8 +11,7 @@ uint32_t handle_int(uint8_t intNum, uint32_t stackPtr){
 #define PIC_SLAVE_DATA 0xA1
 
 void set_idt(gdt_t* gdt, gate_descriptor_t* idt){
-    asm("cli");
- 
+    asm volatile("cli");
     uint16_t codeSegment = get_codeSegmentSelector(gdt);
     const uint8_t IDT_INTERRUPT_GATE = 0xE;
     for(uint8_t i = 255; i > 0; --i){
@@ -42,11 +41,10 @@ void set_idt(gdt_t* gdt, gate_descriptor_t* idt){
 
     idt_ptr_t idtr;
     idtr.size = 256 * sizeof(gate_descriptor_t)-1;
-    idtr.base = (uint32_t)idt;
+    idtr.base = (uint32_t)&idt[0];
     asm volatile("lidt %0" : : "m" (idtr));
     printf("IDT zaladowane do IDTR\n");
-    //asm("sti");
-
+    //asm volatile("sti");
 }
 
 void set_idt_entry(gate_descriptor_t* descriptor, uint16_t codeSegmentSelectorOffset, void(*intHandler)(), uint8_t descriptorPrivilegeLvl, uint8_t descriptorType){
@@ -54,7 +52,7 @@ void set_idt_entry(gate_descriptor_t* descriptor, uint16_t codeSegmentSelectorOf
     descriptor->handlerAddrLow = ((uint32_t)intHandler & 0xFFFF);
     descriptor->handlerAddrHigh = ((uint32_t)intHandler >> 16);
     descriptor->gdt_codeSegmentSelector = codeSegmentSelectorOffset;
-    descriptor->reserved =0;
+    descriptor->reserved = 0;
     descriptor->access = IDT_DESC_PRESENT | descriptorType | ((descriptorPrivilegeLvl & 3) << 5);
 }
 void set_interrupts(){
