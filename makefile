@@ -39,3 +39,4 @@ kernel.iso: kernel.bin
 .PHONY: clean
 clean:
 	rm -rf obj kernel.bin kernel.iso
+.DEFAULT_GOAL := kernel.iso

@@ -1,28 +1,19 @@
 %define IRQ_BASE 0x20
 section .text
-extern handle_int
+extern handle_int, handle_int_request0x00, handle_int_request0x01
 global ignore_int_request
 
-%macro handle_int_exception 1
-global handle_int_exception%1
-handle_int_exception%1:
-    mov byte [intNumber], %1 + IRQ_BASE
+
+
+handle_int_request0x00:
+    mov byte [intNumber], 0 + IRQ_BASE
     push dword 0
     jmp int_bottom
-%endmacro
 
-%macro handle_int_request 1
-global handle_int_request%1
-handle_int_request%1:
-    mov byte [intNumber], %1 + IRQ_BASE
+handle_int_request0x01:
+    mov byte [intNumber], 1 + IRQ_BASE
     push dword 0
     jmp int_bottom
-%endmacro
-
-
-handle_int_request 0x00
-handle_int_request 0x01
-
 
 int_bottom:
     pushad
@@ -33,9 +24,10 @@ int_bottom:
 
     push esp
     push dword [intNumber]
-    call handle_int
-    ;add esp, 4
+    call handle_int  
+    add esp, 4
     mov esp, eax
+    
     pop gs
     pop fs
     pop es

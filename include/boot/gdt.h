@@ -1,7 +1,6 @@
 #ifndef _GDT_H
 #define _GDT_H
-#include <cmn/types.h>
-
+#include <common.h>
 struct segment_descriptor{
     uint16_t    limit_low;
     uint16_t    base_low;
