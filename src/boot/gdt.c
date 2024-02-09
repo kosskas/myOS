@@ -1,4 +1,4 @@
-#include <mem/gdt.h>
+#include <boot/gdt.h>
 
 void create_descriptor(segment_descriptor_t* segdesc, uint32_t base, uint32_t limit, uint8_t flags) {
     //distribute data over structure byte per byte
