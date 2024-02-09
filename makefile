@@ -5,6 +5,8 @@ LDPARAMS = -melf_i386
 objects = obj/loader.o \
 		obj/kernel_main.o \
 		obj/boot/gdt.o \
+		obj/boot/interrupt.o \
+		obj/boot/int_resources.o \
 		obj/cmn/printf.o \
 		obj/io/io.o
 

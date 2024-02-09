@@ -28,8 +28,8 @@ struct gdt_ptr {
 void create_descriptor(segment_descriptor_t* segdesc, uint32_t base, uint32_t limit, uint8_t flags);
 uint32_t get_base(segment_descriptor_t* segdesc);
 uint32_t get_limit(segment_descriptor_t* segdesc);
-uint16_t get_dataSegmentDescriptor(gdt_t* gdt);
-uint16_t get_codeSegmentDescriptor(gdt_t* gdt);
+uint16_t get_dataSegmentSelector(gdt_t* gdt);
+uint16_t get_codeSegmentSelector(gdt_t* gdt);
 void set_gdt(gdt_t* gdt);
-void load_gdt(void* gdtr_entry);
+//void load_gdt(void* gdtr_entry);
 #endif

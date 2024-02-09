@@ -39,10 +39,10 @@ void set_gdt(gdt_t* gdt){
     gdtr[1] = sizeof(gdt) <<16;
     asm volatile("lgdt (%0)": :"p" (((uint8_t *) gdtr)+2));
 }
-uint16_t get_dataSegmentDescriptor(gdt_t* gdt){
+uint16_t get_dataSegmentSelector(gdt_t* gdt){
     return (uint8_t*)&gdt->dataSegSelector - (uint8_t*)gdt;
 }
-uint16_t get_codeSegmentDescriptor(gdt_t* gdt){
+uint16_t get_codeSegmentSelector(gdt_t* gdt){
     return (uint8_t*)&gdt->codeSegSelector - (uint8_t*)gdt;
 }
 uint32_t get_base(segment_descriptor_t* segdesc){
