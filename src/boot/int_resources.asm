@@ -50,4 +50,4 @@ ignore_int_request:
     iret
 
 section .data
-    intNumber db 0
+    intNumber dd 0

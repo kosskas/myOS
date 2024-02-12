@@ -1,23 +1,21 @@
 #ifndef _GDT_H
 #define _GDT_H
 #include <common.h>
-struct segment_descriptor{
+typedef struct segment_descriptor{
     uint16_t    limit_low;
     uint16_t    base_low;
     uint8_t     base_high;
     uint8_t     type;
     uint8_t     flags_limit_high;
     uint8_t     base_vhi;
-} __attribute__((packed));
-
-typedef struct segment_descriptor segment_descriptor_t;
+} __attribute__((packed)) segment_descriptor_t;
 
 typedef struct GDT {
     segment_descriptor_t nullSegSelector;
     segment_descriptor_t unusedSegSelector;
     segment_descriptor_t codeSegSelector;
     segment_descriptor_t dataSegSelector;
-} gdt_t;
+} __attribute__((packed)) gdt_t;
 
 struct gdt_ptr {
     uint16_t len;
@@ -30,5 +28,5 @@ uint32_t get_limit(segment_descriptor_t* segdesc);
 uint16_t get_dataSegmentSelector(gdt_t* gdt);
 uint16_t get_codeSegmentSelector(gdt_t* gdt);
 void set_gdt(gdt_t* gdt);
-//void load_gdt(void* gdtr_entry);
+void load_gdtr(uint16_t limit, uint32_t base);
 #endif

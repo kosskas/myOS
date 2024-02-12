@@ -4,6 +4,7 @@
 
 void kernel_main(){
     printf("Hello real world!\n");
+    asm("cli");
     printf("2. line\n3. line\n4. line\n");
     gdt_t gdt;
     set_gdt(&gdt);

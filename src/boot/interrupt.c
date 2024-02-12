@@ -44,7 +44,7 @@ void set_idt(gdt_t* gdt, gate_descriptor_t* idt){
     idtr.base = (uint32_t)&idt[0];
     asm volatile("lidt %0" : : "m" (idtr));
     printf("IDT zaladowane do IDTR\n");
-    //asm volatile("sti");
+    asm volatile("sti");
 }
 
 void set_idt_entry(gate_descriptor_t* descriptor, uint16_t codeSegmentSelectorOffset, void(*intHandler)(), uint8_t descriptorPrivilegeLvl, uint8_t descriptorType){
