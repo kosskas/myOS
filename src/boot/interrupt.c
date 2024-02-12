@@ -20,7 +20,7 @@ void set_idt(gdt_t* gdt, gate_descriptor_t* idt){
     
     set_idt_entry(&idt[0x20], codeSegment, &handle_int_request0x00, 0, IDT_INTERRUPT_GATE);
     set_idt_entry(&idt[0x21], codeSegment, &handle_int_request0x01, 0, IDT_INTERRUPT_GATE);
-    printf("Przerwania ustawione\n");
+    //printf("Przerwania ustawione\n");
 
     write8_slow(PIC_MASTER_CMD, 0x11);
     write8_slow(PIC_SLAVE_CMD, 0x11);
@@ -37,13 +37,13 @@ void set_idt(gdt_t* gdt, gate_descriptor_t* idt){
     write8_slow(PIC_MASTER_DATA, 0x00);
     write8_slow(PIC_SLAVE_DATA, 0x00);
     
-    printf("IN/OUT\n");
+   // printf("IN/OUT\n");
 
     idt_ptr_t idtr;
     idtr.size = 256 * sizeof(gate_descriptor_t)-1;
     idtr.base = (uint32_t)&idt[0];
     asm volatile("lidt %0" : : "m" (idtr));
-    printf("IDT zaladowane do IDTR\n");
+    //printf("IDT zaladowane do IDTR\n");
     asm volatile("sti");
 }
 

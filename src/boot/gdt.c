@@ -30,7 +30,7 @@ void create_descriptor(segment_descriptor_t* segdesc, uint32_t base, uint32_t li
 
 }
 void set_gdt(gdt_t* gdt){
-    printf("Ustawianie\n");
+    //printf("Ustawianie deskryptorow\n");
     //???
     create_descriptor(&gdt->nullSegSelector,0,0,0);
     
@@ -38,12 +38,11 @@ void set_gdt(gdt_t* gdt){
     create_descriptor(&gdt->codeSegSelector,0,0x04000000,0x9A); //64*1024*1024
     create_descriptor(&gdt->dataSegSelector,0,0x04000000,0x92);
     ///set gdtr
-    printf("Ladowanie gdtr\n");
     uint32_t gdtr[2];
     gdtr[1] = (uint32_t)gdt;
     gdtr[0] = sizeof(gdt_t) << 16;
     asm volatile("lgdt (%0)": :"p" (((uint8_t *) gdtr)+2));
-    printf("GDT zaladowane do gdtr\n");
+    //printf("GDT zaladowane do gdtr\n");
     
 }
 uint16_t get_dataSegmentSelector(gdt_t* gdt){
