@@ -1,5 +1,5 @@
-#ifndef _idt_t
-#define _idt_t
+#ifndef _INT_H
+#define _INT_H
 #include <common.h>
 #include <boot/gdt.h>
 #include <io/io.h>
@@ -27,5 +27,4 @@ void ignore_int_request();
 void handle_int_request0x00();
 void handle_int_request0x01();
 
-void set_interrupts();
 #endif

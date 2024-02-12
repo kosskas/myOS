@@ -1,10 +1,5 @@
 #include <boot/interrupt.h>
 
-uint32_t handle_int(uint8_t intNum, uint32_t stackPtr){
-    printf(" INTERRUPT!");
-
-    return stackPtr;
-}
 #define PIC_MASTER_CMD 0x20
 #define PIC_MASTER_DATA 0x21
 #define PIC_SLAVE_CMD 0xA0
@@ -55,6 +50,13 @@ void set_idt_entry(gate_descriptor_t* descriptor, uint16_t codeSegmentSelectorOf
     descriptor->reserved = 0;
     descriptor->access = IDT_DESC_PRESENT | descriptorType | ((descriptorPrivilegeLvl & 3) << 5);
 }
-void set_interrupts(){
-    asm("sti");
+
+uint32_t handle_int(uint8_t intNum, uint32_t stackPtr){
+    printf(" INTERRUPT!");
+    if(0x20 <= intNum && intNum < 0x30){
+        write8(PIC_MASTER_CMD, 0x20);
+        if(0x28 <= intNum)
+            write8(PIC_SLAVE_CMD, 0x20);
+    }
+    return stackPtr;
 }
