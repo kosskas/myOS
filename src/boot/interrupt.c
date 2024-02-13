@@ -39,7 +39,6 @@ void set_idt(gdt_t* gdt, gate_descriptor_t* idt){
     idtr.base = (uint32_t)&idt[0];
     asm volatile("lidt %0" : : "m" (idtr));
     //printf("IDT zaladowane do IDTR\n");
-    asm volatile("sti");
 }
 
 void set_idt_entry(gate_descriptor_t* descriptor, uint16_t codeSegmentSelectorOffset, void(*intHandler)(), uint8_t descriptorPrivilegeLvl, uint8_t descriptorType){
@@ -52,11 +51,34 @@ void set_idt_entry(gate_descriptor_t* descriptor, uint16_t codeSegmentSelectorOf
 }
 
 uint32_t handle_int(uint8_t intNum, uint32_t stackPtr){
-    printf(" INTERRUPT!");
+
     if(0x20 <= intNum && intNum < 0x30){
         write8(PIC_MASTER_CMD, 0x20);
         if(0x28 <= intNum)
             write8(PIC_SLAVE_CMD, 0x20);
     }
+    if(intNum == 0x21){
+        uint8_t key = read8(0x60);
+        switch (key)
+        {
+        //case 0xFA:
+        //case 0x45:
+        //case 0xC5:
+        //    break;
+        
+        default:
+            char* text = "0x00 ";
+            char* hex = "0123456789ABCDEF";
+            text[2] = hex[(key >> 4) & 0x0F];
+            text[3] = hex[key & 0x0F];
+            printf(text);
+            break;
+        }
+    }
+    if(intNum == 0x20){
+        printf("*");
+    }
+    
+   //printf(" NTERRUPT!");
     return stackPtr;
 }

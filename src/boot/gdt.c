@@ -32,8 +32,7 @@ void create_descriptor(segment_descriptor_t* segdesc, uint32_t base, uint32_t li
 void set_gdt(gdt_t* gdt){
     //printf("Ustawianie deskryptorow\n");
     //???
-    create_descriptor(&gdt->nullSegSelector,0,0,0);
-    
+    create_descriptor(&gdt->nullSegSelector,0,0,0);   
     create_descriptor(&gdt->unusedSegSelector,0,0,0);
     create_descriptor(&gdt->codeSegSelector,0,0x04000000,0x9A); //64*1024*1024
     create_descriptor(&gdt->dataSegSelector,0,0x04000000,0x92);
