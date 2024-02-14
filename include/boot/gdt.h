@@ -10,18 +10,14 @@ typedef struct segment_descriptor{
     uint8_t     base_vhi;
 } __attribute__((packed)) segment_descriptor_t;
 
-typedef struct GDT {
-    segment_descriptor_t nullSegSelector;
-    segment_descriptor_t unusedSegSelector;
-    segment_descriptor_t codeSegSelector;
-    segment_descriptor_t dataSegSelector;
-} __attribute__((packed)) gdt_t;
 
-void create_descriptor(segment_descriptor_t* segdesc, uint32_t base, uint32_t limit, uint8_t flags);
+void create_descriptor(segment_descriptor_t *descriptor,uint32_t base, uint32_t limit, uint8_t flags);
 uint32_t get_base(segment_descriptor_t* segdesc);
 uint32_t get_limit(segment_descriptor_t* segdesc);
-uint16_t get_dataSegmentSelector(gdt_t* gdt);
-uint16_t get_codeSegmentSelector(gdt_t* gdt);
-void set_gdt(gdt_t* gdt);
+uint16_t get_dataSegmentSelector(segment_descriptor_t* gdt);
+uint16_t get_codeSegmentSelector(segment_descriptor_t* gdt);
+void set_gdt();
 void load_gdtr(uint16_t limit, uint32_t base);
+
+void load_gdt(void* gdtr);
 #endif

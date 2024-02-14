@@ -1,12 +1,11 @@
-GCCPARAMS = -m32 -Iinclude -fno-use-cxa-atexit -nostdlib -fno-builtin -fno-rtti -fno-exceptions -fno-leading-underscore -Wno-write-strings
-ASPARAMS = -f elf32
+GCCPARAMS = -m32 -Iinclude -fno-stack-protector -nostdlib -fno-builtin  -fno-exceptions -fno-leading-underscore -Wno-write-strings
+ASPARAMS = -felf32
 LDPARAMS = -melf_i386
 
 objects = obj/loader.o \
 		obj/kernel_main.o \
 		obj/boot/gdt.o \
-		obj/boot/interrupt.o \
-		obj/boot/int_resources.o \
+		obj/boot/load_gdt.o \
 		obj/cmn/printf.o \
 		obj/io/io.o
 

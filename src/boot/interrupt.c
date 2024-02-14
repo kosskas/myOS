@@ -57,6 +57,7 @@ uint32_t handle_int(uint8_t intNum, uint32_t stackPtr){
         if(0x28 <= intNum)
             write8(PIC_SLAVE_CMD, 0x20);
     }
+    /*
     if(intNum == 0x21){
         uint8_t key = read8(0x60);
         switch (key)
@@ -78,7 +79,7 @@ uint32_t handle_int(uint8_t intNum, uint32_t stackPtr){
     if(intNum == 0x20){
         printf("*");
     }
-    
+    */
    //printf(" NTERRUPT!");
     return stackPtr;
 }
