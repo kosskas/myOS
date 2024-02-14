@@ -19,6 +19,8 @@ typedef struct idt_ptr{
 
 void set_idt();
 void set_idt_entry(gate_descriptor_t* idt, uint16_t codeSegmentSelectorOffset, void(*intHandler)(), uint8_t descriptorPrivilegeLvl, uint8_t descriptorType);
+void load_idt(idt_ptr_t* idtr);
+
 
 uint32_t handle_int(uint8_t intNum, uint32_t stackPtr);
 

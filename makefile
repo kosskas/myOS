@@ -7,6 +7,7 @@ objects = obj/loader.o \
 		obj/io/io.o \
 		obj/boot/gdt.o \
 		obj/boot/load_gdt.o \
+		obj/boot/load_idt.o \
 		obj/boot/interrupt.o \
 		obj/boot/int_resources.o \
 		obj/cmn/printf.o \

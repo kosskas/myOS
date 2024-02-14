@@ -43,7 +43,8 @@ void set_idt(){
     idt_ptr_t idtr;
     idtr.size = 256 * sizeof(gate_descriptor_t)-1;
     idtr.base = (uint32_t)&idt[0];
-    asm volatile("lidt %0" : : "m" (idtr));
+    //asm volatile("lidt %0" : : "m" (idtr));
+    load_idt(&idtr);
     printf("IDT zaladowane do IDTR\n");
 }
 
