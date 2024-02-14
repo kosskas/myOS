@@ -1,7 +1,6 @@
 #ifndef _INT_H
 #define _INT_H
 #include <common.h>
-#include <boot/gdt.h>
 #include <io/io.h>
 
 typedef struct gate_descriptor{
@@ -18,7 +17,7 @@ typedef struct idt_ptr{
 } __attribute__((packed)) idt_ptr_t;
 
 
-void set_idt(gdt_t* gdt, gate_descriptor_t* idt);
+void set_idt();
 void set_idt_entry(gate_descriptor_t* idt, uint16_t codeSegmentSelectorOffset, void(*intHandler)(), uint8_t descriptorPrivilegeLvl, uint8_t descriptorType);
 
 uint32_t handle_int(uint8_t intNum, uint32_t stackPtr);

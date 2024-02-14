@@ -1,4 +1,4 @@
-GCCPARAMS = -m32 -Iinclude -fno-stack-protector -nostdlib -fno-builtin  -fno-exceptions -fno-leading-underscore -Wno-write-strings
+GCCPARAMS = -m32 -Iinclude -fno-stack-protector  -fno-builtin
 ASPARAMS = -felf32
 LDPARAMS = -melf_i386
 
@@ -6,14 +6,17 @@ objects = obj/loader.o \
 		obj/kernel_main.o \
 		obj/boot/gdt.o \
 		obj/boot/load_gdt.o \
-		obj/cmn/printf.o \
-		obj/io/io.o
+		obj/cmn/printf.o
 
 obj/%.o: src/%.c
 	mkdir -p $(@D)
 	gcc $(GCCPARAMS) -c -o $@ $<
 
 obj/%.o: src/%.asm
+	mkdir -p $(@D)
+	nasm $(ASPARAMS) -o $@ $<
+
+obj/%.o: src/%.s
 	mkdir -p $(@D)
 	nasm $(ASPARAMS) -o $@ $<
 

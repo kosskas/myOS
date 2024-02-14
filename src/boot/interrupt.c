@@ -5,9 +5,12 @@
 #define PIC_SLAVE_CMD 0xA0
 #define PIC_SLAVE_DATA 0xA1
 
-void set_idt(gdt_t* gdt, gate_descriptor_t* idt){
+void set_idt(){
     asm volatile("cli");
-    uint16_t codeSegment = get_codeSegmentSelector(gdt);
+    uint16_t codeSegment = 0x08;
+
+    __attribute__((aligned(0x10))) 
+    static gate_descriptor_t idt[256];
     const uint8_t IDT_INTERRUPT_GATE = 0xE;
     for(uint8_t i = 255; i > 0; --i){
         set_idt_entry(&idt[i], codeSegment, &ignore_int_request, 0, IDT_INTERRUPT_GATE);
@@ -38,7 +41,7 @@ void set_idt(gdt_t* gdt, gate_descriptor_t* idt){
     idtr.size = 256 * sizeof(gate_descriptor_t)-1;
     idtr.base = (uint32_t)&idt[0];
     asm volatile("lidt %0" : : "m" (idtr));
-    //printf("IDT zaladowane do IDTR\n");
+    printf("IDT zaladowane do IDTR\n");
 }
 
 void set_idt_entry(gate_descriptor_t* descriptor, uint16_t codeSegmentSelectorOffset, void(*intHandler)(), uint8_t descriptorPrivilegeLvl, uint8_t descriptorType){

@@ -11,6 +11,6 @@ load_gdt:
     mov fs, ax
     mov gs, ax
     mov ss, ax
-    jmp 0x8:set_cs
+    jmp 0x08:set_cs
 set_cs:
     ret

@@ -1,6 +1,6 @@
 #include <common.h>
 #include <boot/gdt.h>
-//#include <boot/interrupt.h>
+#include <boot/interrupt.h>
 
 //void activate_kb();
 //void readCmd();
@@ -8,13 +8,10 @@
 
 void kernel_main(){
     printf("Hello real world!\n"); 
-    asm("cli");
-    
+ 
     set_gdt();
-    printf("GDT ustawione\n"); 
-    //__attribute__((aligned(0x10))) 
-    //static gate_descriptor_t idt[256];
-    // set_idt(&gdt, idt);
+
+    set_idt();
     printf("2. line\n3. line\n4. line\n test");
     //activate_kb();
     ///asm volatile("sti");
