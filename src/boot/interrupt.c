@@ -5,12 +5,12 @@
 #define PIC_SLAVE_CMD 0xA0
 #define PIC_SLAVE_DATA 0xA1
 
+__attribute__((aligned(0x10))) 
+gate_descriptor_t idt[256];
+
 void set_idt(){
     asm volatile("cli");
     uint16_t codeSegment = 0x08;
-
-    __attribute__((aligned(0x10))) 
-    static gate_descriptor_t idt[256];
     const uint8_t IDT_INTERRUPT_GATE = 0xE;
     for(uint8_t i = 255; i > 0; --i){
         set_idt_entry(&idt[i], codeSegment, &ignore_int_request, 0, IDT_INTERRUPT_GATE);
@@ -60,7 +60,7 @@ uint32_t handle_int(uint8_t intNum, uint32_t stackPtr){
         if(0x28 <= intNum)
             write8(PIC_SLAVE_CMD, 0x20);
     }
-    /*
+    
     if(intNum == 0x21){
         uint8_t key = read8(0x60);
         switch (key)
@@ -82,7 +82,7 @@ uint32_t handle_int(uint8_t intNum, uint32_t stackPtr){
     if(intNum == 0x20){
         printf("*");
     }
-    */
-   //printf(" NTERRUPT!");
+    
+    //printf(" NTERRUPT!");
     return stackPtr;
 }

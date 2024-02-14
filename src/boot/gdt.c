@@ -21,11 +21,9 @@ void set_gdt(){
     create_descriptor(2,0,0xFFFFFFFF,0x92); //knl data
     create_descriptor(3,0,0xFFFFFFFF,0xFA); //usr code
     create_descriptor(4,0,0xFFFFFFFF,0xF2); //usr data
-    ///set gdtr
-    uint32_t gdtr[2];
-    gdtr[0] = (sizeof(gdt)-1) << 16;
-    gdtr[1] = (uint32_t)&gdt;
-    //asm volatile("lgdt (%0)": :"p" (((uint8_t *) gdtr)+2));
-    load_gdt( ((uint8_t *) gdtr)+2 );
-    //printf("GDT zaladowane do gdtr\n");
+    gdt_ptr_t gdtr;
+    gdtr.size = (sizeof(gdt)-1);
+    gdtr.base = (uint32_t)&gdt;
+    load_gdt(&gdtr);
+    printf("GDT zaladowane do gdtr\n");
 }
