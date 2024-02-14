@@ -64,45 +64,10 @@ uint32_t handle_int(uint8_t intNum, uint32_t stackPtr){
     if(handlers[intNum] != 0){
         stackPtr = handlers[intNum](stackPtr);
     }
-    /*
-    if(intNum == 0x21){
-        uint8_t key = read8(0x60);
-        if(key < 0x80) {
-            char* text = " ";
-            text[0] = get_char(key);
-            printf(text);
-        }
-    }
-    */
     if(0x20 <= intNum && intNum < 0x30){
         write8(PIC_MASTER_CMD, 0x20);
         if(0x28 <= intNum)
             write8(PIC_SLAVE_CMD, 0x20);
     }
-    /*
-    if(intNum == 0x21){
-        uint8_t key = read8(0x60);
-        switch (key)
-        {
-        //case 0xFA:
-        //case 0x45:
-        //case 0xC5:
-        //    break;
-        
-        default:
-            char* text = "0x00 ";
-            char* hex = "0123456789ABCDEF";
-            text[2] = hex[(key >> 4) & 0x0F];
-            text[3] = hex[key & 0x0F];
-            printf(text);
-            break;
-        }
-    }
-    if(intNum == 0x20){
-        printf("*");
-    }
-    
-    //printf(" NTERRUPT!");
-    */
     return stackPtr;
 }

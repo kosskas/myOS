@@ -24,7 +24,25 @@ uint32_t keyboard_handler(uint32_t stackPtr){
     }
     return stackPtr;
 }
+/*
+    uint8_t key = read8(0x60);
+        switch (key)
+        {
+        //case 0xFA:
+        //case 0x45:
+        //case 0xC5:
+        //    break;
+        
+        default:
+            char* text = "0x00 ";
+            char* hex = "0123456789ABCDEF";
+            text[2] = hex[(key >> 4) & 0x0F];
+            text[3] = hex[key & 0x0F];
+            printf(text);
+            break;
+        }
 
+*/
 char get_char(uint8_t key){
     if(key < 0x80) {
         switch (key) {
