@@ -1,4 +1,5 @@
 #include <boot/interrupt.h>
+#include <drivers/kb.h>
 
 #define PIC_MASTER_CMD 0x20
 #define PIC_MASTER_DATA 0x21
@@ -7,6 +8,8 @@
 
 __attribute__((aligned(0x10))) 
 gate_descriptor_t idt[256];
+
+uint32_t (*handlers[256])(uint32_t);
 
 void set_idt(){
     asm volatile("cli");
@@ -53,14 +56,30 @@ void set_idt_entry(gate_descriptor_t* descriptor, uint16_t codeSegmentSelectorOf
     descriptor->access = IDT_DESC_PRESENT | descriptorType | ((descriptorPrivilegeLvl & 3) << 5);
 }
 
-uint32_t handle_int(uint8_t intNum, uint32_t stackPtr){
+void install_handler(uint8_t intNum, uint32_t (*handler)(uint32_t)){
+    handlers[intNum] = handler;
+}
 
+uint32_t handle_int(uint8_t intNum, uint32_t stackPtr){
+    if(handlers[intNum] != 0){
+        stackPtr = handlers[intNum](stackPtr);
+    }
+    /*
+    if(intNum == 0x21){
+        uint8_t key = read8(0x60);
+        if(key < 0x80) {
+            char* text = " ";
+            text[0] = get_char(key);
+            printf(text);
+        }
+    }
+    */
     if(0x20 <= intNum && intNum < 0x30){
         write8(PIC_MASTER_CMD, 0x20);
         if(0x28 <= intNum)
             write8(PIC_SLAVE_CMD, 0x20);
     }
-    
+    /*
     if(intNum == 0x21){
         uint8_t key = read8(0x60);
         switch (key)
@@ -84,5 +103,6 @@ uint32_t handle_int(uint8_t intNum, uint32_t stackPtr){
     }
     
     //printf(" NTERRUPT!");
+    */
     return stackPtr;
 }

@@ -22,6 +22,8 @@ void set_idt_entry(gate_descriptor_t* idt, uint16_t codeSegmentSelectorOffset, v
 
 uint32_t handle_int(uint8_t intNum, uint32_t stackPtr);
 
+void install_handler(uint8_t intNum, uint32_t (*handler)(uint32_t));
+
 void ignore_int_request();
 void handle_int_request0x00();
 void handle_int_request0x01();
