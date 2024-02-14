@@ -1,6 +1,7 @@
 #include <common.h>
 #include <boot/gdt.h>
 #include <boot/interrupt.h>
+#include <drivers/kb.h>
 
 //void activate_kb();
 //void readCmd();
@@ -8,13 +9,11 @@
 
 void kernel_main(){
     printf("Hello real world!\n"); 
- 
     set_gdt();
-
     set_idt();
     printf("2. line\n3. line\n4. line\n test");
-    //activate_kb();
-    ///asm volatile("sti");
+    activate_kb();
+    asm volatile("sti");
     while(1);
         //readCmd();
 }
