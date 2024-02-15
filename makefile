@@ -12,7 +12,9 @@ objects = obj/loader.o \
 		obj/boot/int_resources.o \
 		obj/cmn/printf.o \
 		obj/cmn/string.o \
-		obj/drivers/kb.o
+		obj/drivers/kb.o \
+		obj/drivers/install.o \
+		obj/drivers/clock.o
 
 
 obj/%.o: src/%.c

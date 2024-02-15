@@ -1,16 +1,14 @@
 #include <common.h>
 #include <boot/gdt.h>
 #include <boot/interrupt.h>
-#include <drivers/kb.h>
+#include <drivers/install.h>
 
 void readCmd();
-int sprawdz();
 void kernel_main(){
-    printf("Hello real world!\n"); 
+    printf("\nHello world!\n"); 
     set_gdt();
     set_idt();
-    printf("2. line\n3. line\n4. line\n test");
-    activate_kb();
+    install_drivers();
     asm volatile("sti");
     while(1);
        // readCmd();
