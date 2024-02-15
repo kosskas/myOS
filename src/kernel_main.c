@@ -4,6 +4,7 @@
 #include <drivers/kb.h>
 
 void readCmd();
+int sprawdz();
 void kernel_main(){
     printf("Hello real world!\n"); 
     set_gdt();

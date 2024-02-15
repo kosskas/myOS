@@ -3,5 +3,5 @@
 
 #include <cmn/printf.h>
 #include <cmn/types.h>
-
+#include <cmn/string.h>
 #endif

@@ -11,6 +11,7 @@ objects = obj/loader.o \
 		obj/boot/interrupt.o \
 		obj/boot/int_resources.o \
 		obj/cmn/printf.o \
+		obj/cmn/string.o \
 		obj/drivers/kb.o
 
 
@@ -19,10 +20,6 @@ obj/%.o: src/%.c
 	gcc $(GCCPARAMS) -c -o $@ $<
 
 obj/%.o: src/%.asm
-	mkdir -p $(@D)
-	nasm $(ASPARAMS) -o $@ $<
-
-obj/%.o: src/%.s
 	mkdir -p $(@D)
 	nasm $(ASPARAMS) -o $@ $<
 
