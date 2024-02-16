@@ -1,5 +1,5 @@
-# myOS
-Own simple operating system in C/ASM.<br>
+# Goal
+Goal of this project is create simple single-threaded operating system in C/ASM. System should handle hardware interrupts like keyboard or clock. It will have simple shell with few commands and will be running in protected mode with paging.
 
 ## Tools
 `sudo apt-get install gcc binutils libc6-dev-i386`<br>
