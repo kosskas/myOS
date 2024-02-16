@@ -1,6 +1,6 @@
 #include <drivers/kb.h>
 
-char kbd_US [128] =
+char scancodeToAscii [128] =
 {
     0,  27, '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', '\b',   
   '\t', /* <-- Tab */
@@ -61,7 +61,7 @@ uint32_t keyboard_handler(uint32_t stackPtr){
 }
 char get_char(uint8_t key){
     if(key < 0x80) {
-        return kbd_US[key];
+        return scancodeToAscii[key];
     }
     return '?';
 }
