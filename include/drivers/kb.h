@@ -3,10 +3,11 @@
 #include <common.h>
 #include <io/io.h>
 #include <boot/interrupt.h>
-
+#define MAX_BUFF_LEN 100
 void activate_kb();
 
 uint32_t keyboard_handler(uint32_t stackPtr);
 
 char get_char(uint8_t key);
+void get_string(char* dest);
 #endif

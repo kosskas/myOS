@@ -14,6 +14,10 @@ int strcmp(const char *s1, const char *s2) {
     return (*(const unsigned char *)s1 - *(const unsigned char *)s2);
 }
 
+void strcpy(char *destination, const char *source) {
+    while ((*destination++ = *source++) != '\0');
+}
+
 int atoi(const char *str) {
     int result = 0;
     int sign = 1;
