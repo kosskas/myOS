@@ -12,10 +12,13 @@ uint32_t clock_handler(uint32_t stackPtr){
         //printf("*");
         ticks = 0;
         secs++;
-        char buff[20] = "Time ";
-        itoa(secs, buff+5);
-        write(buff);
+        display_time();
     }
     
     return stackPtr;
+}
+void display_time(){
+    char buff[20] = "Time ";
+    itoa(secs, buff+5);
+    write(buff);
 }

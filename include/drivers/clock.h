@@ -6,4 +6,5 @@
 
 void install_clock();
 uint32_t clock_handler(uint32_t stackPtr);
+void display_time();
 #endif
