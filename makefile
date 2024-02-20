@@ -10,7 +10,7 @@ objects = obj/loader.o \
 		obj/boot/load_idt.o \
 		obj/boot/interrupt.o \
 		obj/boot/int_resources.o \
-		obj/cmn/printf.o \
+		obj/cmn/stdio.o \
 		obj/cmn/string.o \
 		obj/drivers/kb.o \
 		obj/drivers/install.o \

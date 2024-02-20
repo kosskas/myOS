@@ -12,7 +12,7 @@ uint32_t clock_handler(uint32_t stackPtr){
         //printf("*");
         ticks = 0;
         secs++;
-        display_time();
+        //display_time();    
     }
     
     return stackPtr;
@@ -20,5 +20,5 @@ uint32_t clock_handler(uint32_t stackPtr){
 void display_time(){
     char buff[20] = "Time ";
     itoa(secs, buff+5);
-    write(buff);
+    write(buff,get_last_cursor_pos());
 }

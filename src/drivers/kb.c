@@ -36,6 +36,7 @@ char scancodeToAscii [128] =
 };
 
 char kbbuffer[MAX_BUFF_LEN];
+uint8_t kbindex=0;
 
 void activate_kb(){
     uint16_t dataport = 0x60;
@@ -55,36 +56,42 @@ void activate_kb(){
 uint32_t keyboard_handler(uint32_t stackPtr){
     uint8_t key = read8(0x60);
     if(key < 0x80) {
-        static uint32_t index=0;
-        char ascii=get_char(key);
+        char ascii=convert_to_char(key);
         if(ascii == '\b'){
             return_cursor();
-            index--;
-        }       
-        else if(ascii == '\n'){
-            kbbuffer[index%MAX_BUFF_LEN]='\0';
-            index=0;
-            //char* text = " ";   
-            //text[0] = ascii;
-            //printf(text);
+            if(kbindex == 0)
+                kbindex = 0;
+            else
+                kbindex--;
         }
-        else{
-            kbbuffer[index%MAX_BUFF_LEN]=ascii;
+        else if(ascii == '\n'){
+            kbbuffer[(kbindex)%MAX_BUFF_LEN] = '\0';
             char* text = " ";   
-            text[0] = ascii;
+            text[0] = '\n';
             printf(text);
         }
-
+        else{
+            kbbuffer[(kbindex++)%MAX_BUFF_LEN]=ascii;
+            char* text = " ";   
+            text[0] = ascii;
+            printf(text);          
+        }
     }
     return stackPtr;
 }
-char get_char(uint8_t key){
+char get_char(){
+    return convert_to_char(read8(0x60));
+}
+
+char convert_to_char(uint8_t key){
     if(key < 0x80) {
         return scancodeToAscii[key];
     }
     return '?';
 }
 
-void get_string(char* dest){
+void get_kbstring(char* dest){
+    kbbuffer[kbindex] = '\0';
     strcpy(dest, kbbuffer);
+    kbindex = 0;
 }
