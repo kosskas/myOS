@@ -1,9 +1,11 @@
 #include <cmn/stdio.h>
 #include <drivers/kb.h>
-static uint16_t* VideoMemory = (uint16_t*)0xB8000;
+
+
+static uint16_t * VideoMemory = (uint16_t *)0xB8000;
 static uint8_t x =0, y =0;
 
-void write(const char* str, int start){
+void write(const char * str, int start){
     for(int i = 0; str[i] != '\0'; i++){
         VideoMemory[start] = (VideoMemory[start] & 0xFF00) | str[i];
         start++;
@@ -11,12 +13,12 @@ void write(const char* str, int start){
 }
 
 
-void read(char* str){
+void read(char * str){
     while (get_char() != '\n');
-    get_kbstring(str);  
+    get_kbstring(str);
 }
 
-void printf(const char* str){
+void printf(const char * str){
     for(int i = 0; str[i] != '\0'; ++i){
         switch (str[i])
         {

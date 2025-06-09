@@ -8,3 +8,5 @@
 *.old
 *.iso
 /templates
+/uncrustify.cfg
+/Doxyfile
