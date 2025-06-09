@@ -9,6 +9,6 @@ void activate_kb();
 uint32_t keyboard_handler(uint32_t stackPtr);
 
 char convert_to_char(uint8_t key);
-void get_kbstring(char* dest);
+void get_kbstring(char * dest);
 char get_char();
-#endif
+#endif /* ifndef _KB_H */

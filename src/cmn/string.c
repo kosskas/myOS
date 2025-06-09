@@ -1,12 +1,12 @@
 #include <cmn/string.h>
 
-uint32_t strlen(const char *str) {
-    const char *s;
+uint32_t strlen(const char * str) {
+    const char * s;
     for (s = str; *s; ++s);
     return (s - str);
 }
 
-int strcmp(const char *s1, const char *s2) {
+int strcmp(const char * s1, const char * s2) {
     while (*s1 && (*s1 == *s2)) {
         ++s1;
         ++s2;
@@ -14,11 +14,11 @@ int strcmp(const char *s1, const char *s2) {
     return (*(const unsigned char *)s1 - *(const unsigned char *)s2);
 }
 
-void strcpy(char *destination, const char *source) {
+void strcpy(char * destination, const char * source) {
     while ((*destination++ = *source++) != '\0');
 }
 
-int atoi(const char *str) {
+int atoi(const char * str) {
     int result = 0;
     int sign = 1;
     if (*str == '-') {
@@ -32,10 +32,10 @@ int atoi(const char *str) {
     return sign * result;
 }
 
-char* itoa(int value, char* str) {
+char * itoa(int value, char * str) {
     int base = 10;
-    const char* dict = "0123456789abcdefghijklmnopqrstuvwxyz";
-    char* ptr = str;
+    const char * dict = "0123456789abcdefghijklmnopqrstuvwxyz";
+    char * ptr = str;
     if (base < 2 || base > 36) {
         *ptr = '\0';
         return str;

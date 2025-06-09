@@ -3,28 +3,35 @@
 #include <boot/interrupt.h>
 #include <drivers/install.h>
 
-void process_start(const char* cmd);
+void process_start(const char * cmd);
 
-void kernel_main(){
-    printf("\nHello world!\n"); 
+void kernel_main()
+{
+    display_logo();
     set_gdt();
     set_idt();
     install_drivers();
-    asm volatile("sti");
+    asm volatile ("sti");
     char command[127];
     printf("Avaible commands: time, info\n");
-    while(1){
+    while (1)
+    {
         read(command);
         process_start(command);
     }
 }
-void process_start(const char* cmd){
-    if(strcmp(cmd,"time") == 0){
-        while (get_char() != 'x'){
+
+void process_start(const char * cmd)
+{
+    if (strcmp(cmd, "time") == 0)
+    {
+        while (get_char() != 'x')
+        {
             display_time();
         }
     }
-    if(strcmp(cmd,"info") == 0){
+    if (strcmp(cmd, "info") == 0)
+    {
         printf("myOS\nMateusz Stencel 2024\n");
     }
 }

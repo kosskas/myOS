@@ -1,24 +1,24 @@
 #include <boot/interrupt.h>
 #include <drivers/kb.h>
 
-#define PIC_MASTER_CMD 0x20
+#define PIC_MASTER_CMD  0x20
 #define PIC_MASTER_DATA 0x21
-#define PIC_SLAVE_CMD 0xA0
-#define PIC_SLAVE_DATA 0xA1
+#define PIC_SLAVE_CMD   0xA0
+#define PIC_SLAVE_DATA  0xA1
 
-__attribute__((aligned(0x10))) 
+__attribute__((aligned(0x10)))
 gate_descriptor_t idt[256];
 
 uint32_t (*handlers[256])(uint32_t);
 
 void set_idt(){
-    asm volatile("cli");
+    asm volatile ("cli");
     uint16_t codeSegment = 0x08;
     const uint8_t IDT_INTERRUPT_GATE = 0xE;
     for(uint8_t i = 255; i > 0; --i){
         set_idt_entry(&idt[i], codeSegment, &ignore_int_request, 0, IDT_INTERRUPT_GATE);
     }
-    
+
     set_idt_entry(&idt[0x20], codeSegment, &handle_int_request0x00, 0, IDT_INTERRUPT_GATE);
     set_idt_entry(&idt[0x21], codeSegment, &handle_int_request0x01, 0, IDT_INTERRUPT_GATE);
     //printf("Przerwania ustawione\n");
@@ -37,8 +37,8 @@ void set_idt(){
 
     write8_slow(PIC_MASTER_DATA, 0x00);
     write8_slow(PIC_SLAVE_DATA, 0x00);
-    
-   // printf("IN/OUT\n");
+
+    // printf("IN/OUT\n");
 
     idt_ptr_t idtr;
     idtr.size = 256 * sizeof(gate_descriptor_t)-1;
@@ -48,7 +48,7 @@ void set_idt(){
     printf("IDT zaladowane do IDTR\n");
 }
 
-void set_idt_entry(gate_descriptor_t* descriptor, uint16_t codeSegmentSelectorOffset, void(*intHandler)(), uint8_t descriptorPrivilegeLvl, uint8_t descriptorType){
+void set_idt_entry(gate_descriptor_t * descriptor, uint16_t codeSegmentSelectorOffset, void (*intHandler)(), uint8_t descriptorPrivilegeLvl, uint8_t descriptorType){
     const uint8_t IDT_DESC_PRESENT = 0x80;
     descriptor->handlerAddrLow = ((uint32_t)intHandler & 0xFFFF);
     descriptor->handlerAddrHigh = ((uint32_t)intHandler >> 16);

@@ -7,9 +7,9 @@ Goal of this project is create simple single-threaded operating system in C/ASM.
 `sudo apt-get install grub-efi`<br>
 `sudo apt-get install mtools`<br>
 `sudo apt-get install xorriso`<br>
+`sudo apt install grub-pc-bin`<br>
 
 ## Complile
 1. Run `make` to build kernel.
 2. Run `make kernel.iso` to make iso.
 3. Run `make clean` to clean project.
-
